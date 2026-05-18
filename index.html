@@ -1,1 +1,751 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<title>ETF 投資參考指南｜韋總裁</title>
+<style>
+*{ margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+:root{
+  --navy:#1A2744; --gold:#C9A84C; --gold-pale:#F7F2E0;
+  --ink:#1C1C1E; --ink-2:#3A3A3C; --ink-3:#8A8A8E;
+  --cream:#FAF8F3; --white:#FFFFFF;
+  --border:rgba(28,28,30,0.08);
+}
+html{ scroll-behavior:smooth; }
+body{
+  background:var(--cream);
+  font-family:'Noto Serif TC',serif;
+  color:var(--ink); font-size:16px; line-height:1.85;
+  -webkit-font-smoothing:antialiased;
+}
 
+/* Progress */
+.progress-bar{
+  position:fixed; top:0; left:0; height:3px;
+  background:var(--gold); width:0%; z-index:100; transition:width .1s;
+}
+
+/* Hero */
+.hero{
+  background:linear-gradient(160deg,#1A2744 0%,#0f1c38 60%,#1a2030 100%);
+  padding:56px 28px 50px; position:relative; overflow:hidden;
+}
+.hero::after{
+  content:''; position:absolute; bottom:-1px; left:0; right:0;
+  height:32px; background:var(--cream); border-radius:32px 32px 0 0;
+}
+.hero-tag{
+  display:inline-block; font-size:10px; font-weight:500;
+  color:var(--gold); letter-spacing:.5em; margin-bottom:22px;
+}
+.hero-etf{
+  font-size:72px; font-weight:900; color:#fff;
+  line-height:1; letter-spacing:.08em; margin-bottom:6px;
+}
+.hero-line{
+  width:60px; height:2px;
+  background:linear-gradient(to right,var(--gold),transparent);
+  margin-bottom:20px;
+}
+.hero-title{
+  font-size:20px; font-weight:700;
+  color:rgba(255,255,255,.90); line-height:1.5; letter-spacing:.05em;
+  margin-bottom:12px;
+}
+.hero-title span{ color:var(--gold); }
+.hero-sub{
+  font-size:13px; color:rgba(255,255,255,.40);
+  line-height:1.8; letter-spacing:.06em;
+}
+
+/* Wrap */
+.wrap{ max-width:480px; margin:0 auto; padding:0 22px 70px; }
+
+/* Section */
+.section{ margin-top:44px; }
+
+/* Section Label */
+.sec-label{
+  font-size:11px; font-weight:700;
+  color:var(--ink-3); letter-spacing:.4em;
+  text-transform:uppercase; margin-bottom:6px;
+  display:flex; align-items:center; gap:8px;
+}
+.sec-label::before{
+  content:''; width:20px; height:1.5px; background:var(--gold);
+}
+
+/* Section Title */
+.sec-title{
+  font-size:20px; font-weight:900;
+  color:var(--navy); line-height:1.35;
+  letter-spacing:.05em; margin-bottom:20px;
+}
+
+/* Cards */
+.card{
+  background:var(--white); border-radius:16px;
+  padding:26px 22px;
+  box-shadow:0 2px 18px rgba(26,39,68,.07);
+}
+.card + .card{ margin-top:14px; }
+.dark-card{
+  background:var(--navy); border-radius:16px;
+  padding:26px 22px;
+}
+
+/* About */
+.about-photo-wrap{
+  display:flex; align-items:flex-start; gap:18px; margin-bottom:22px;
+}
+.about-photo{
+  width:80px; height:80px; border-radius:50%;
+  object-fit:cover; object-position:center top;
+  flex-shrink:0;
+  box-shadow:0 4px 16px rgba(26,39,68,.18);
+}
+.about-meta{ display:flex; flex-direction:column; justify-content:center; gap:3px; }
+.about-name{
+  font-size:17px; font-weight:900;
+  color:var(--navy); letter-spacing:.06em;
+}
+.about-title-tag{
+  font-size:11px; color:var(--ink-3); letter-spacing:.05em;
+}
+.about-ig{
+  font-size:11px; color:var(--gold); letter-spacing:.06em; font-weight:600;
+}
+.about-divider{
+  width:36px; height:1.5px;
+  background:var(--gold); opacity:.5; margin:0 0 18px;
+}
+.about-body{
+  font-size:14.5px; color:var(--ink-2);
+  line-height:1.95; letter-spacing:.04em;
+}
+.about-body strong{ color:var(--navy); font-weight:700; }
+.about-body p{ margin-bottom:14px; }
+.about-body p:last-child{ margin-bottom:0; }
+.about-quote{
+  margin-top:18px; padding:16px 18px;
+  background:var(--gold-pale);
+  border-left:3px solid var(--gold);
+  border-radius:0 10px 10px 0;
+  font-size:13.5px; color:var(--navy);
+  line-height:1.9; letter-spacing:.04em; font-style:italic;
+}
+
+/* Intro */
+.intro-headline{
+  font-size:18px; font-weight:900; color:#fff;
+  line-height:1.5; letter-spacing:.05em; margin-bottom:14px;
+}
+.intro-headline span{ color:var(--gold); }
+.intro-body{
+  font-size:14px; color:rgba(255,255,255,.55);
+  line-height:1.9; letter-spacing:.04em;
+}
+.intro-body p{ margin-bottom:12px; }
+.intro-body p:last-child{ margin-bottom:0; }
+
+/* Indicators */
+.ind-card{
+  background:var(--white); border-radius:16px;
+  padding:22px 20px 22px 24px;
+  box-shadow:0 2px 14px rgba(26,39,68,.06);
+  position:relative; overflow:hidden;
+}
+.ind-card + .ind-card{ margin-top:14px; }
+.ind-card::before{
+  content:''; position:absolute; top:0; left:0;
+  width:4px; height:100%; background:var(--navy);
+  border-radius:2px 0 0 2px;
+}
+.ind-header{
+  display:flex; align-items:center; gap:10px; margin-bottom:14px;
+}
+.ind-num{
+  width:26px; height:26px; background:var(--navy); color:#fff;
+  font-size:11px; font-weight:700; border-radius:7px;
+  display:flex; align-items:center; justify-content:center;
+  flex-shrink:0; letter-spacing:.02em;
+}
+.ind-title{
+  font-size:16px; font-weight:900; color:var(--ink);
+  letter-spacing:.05em; line-height:1.3;
+}
+.ind-body{
+  font-size:14px; color:var(--ink-2);
+  line-height:1.9; letter-spacing:.04em;
+}
+.ind-body p{ margin-bottom:12px; }
+.ind-body p:last-child{ margin-bottom:0; }
+.ind-body em{ color:var(--ink-3); font-style:normal; }
+
+/* Key point pill */
+.key-pill{
+  margin-top:16px; padding:13px 16px;
+  background:var(--gold-pale);
+  border-radius:10px;
+  font-size:13.5px; font-weight:700;
+  color:var(--navy); line-height:1.65;
+  letter-spacing:.04em;
+}
+
+/* Cost table */
+.cost-table{
+  width:100%; border-collapse:collapse;
+  margin:14px 0; font-size:13px;
+  border-radius:10px; overflow:hidden;
+}
+.cost-table th{
+  background:var(--navy); color:rgba(255,255,255,.75);
+  padding:9px 14px; text-align:left;
+  letter-spacing:.07em; font-weight:600;
+}
+.cost-table td{
+  padding:10px 14px;
+  border-bottom:1px solid var(--border);
+  color:var(--ink); letter-spacing:.04em;
+}
+.cost-table tr:last-child td{ border-bottom:none; }
+.cost-table td:last-child{
+  font-weight:700; color:#8B3520; text-align:right;
+}
+.cost-table tr:nth-child(even) td{ background:rgba(26,39,68,.02); }
+
+/* Mindset */
+.mindset-headline{
+  font-size:18px; font-weight:900; color:#fff;
+  line-height:1.45; letter-spacing:.05em; margin-bottom:20px;
+}
+.mindset-headline span{ color:var(--gold); }
+.mindset-item{
+  display:flex; align-items:flex-start; gap:12px;
+  padding:14px 16px; margin-bottom:10px;
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.09);
+  border-radius:10px;
+}
+.mindset-item:last-of-type{ margin-bottom:0; }
+.mindset-dot{
+  width:7px; height:7px; border-radius:50%;
+  background:var(--gold); flex-shrink:0; margin-top:9px;
+}
+.mindset-text{
+  font-size:14px; color:rgba(255,255,255,.72);
+  line-height:1.8; letter-spacing:.04em;
+}
+.mindset-text strong{
+  color:rgba(255,255,255,.92); font-weight:700;
+  display:block; margin-bottom:2px;
+}
+.mindset-quote{
+  margin-top:18px; padding:16px 18px;
+  background:rgba(201,168,76,.10);
+  border:1px solid rgba(201,168,76,.22);
+  border-radius:10px;
+  font-size:13.5px; color:rgba(255,255,255,.60);
+  line-height:1.85; letter-spacing:.05em; font-style:italic;
+}
+
+/* Checklist */
+.check-title{
+  font-size:15px; font-weight:700;
+  color:var(--navy); letter-spacing:.05em; margin-bottom:18px;
+}
+.check-item{
+  display:flex; align-items:flex-start; gap:13px;
+  padding:13px 15px; margin-bottom:10px;
+  background:var(--cream); border-radius:10px;
+}
+.check-item:last-child{ margin-bottom:0; }
+.check-box{
+  width:22px; height:22px; flex-shrink:0;
+  border:1.5px solid rgba(26,39,68,.2);
+  border-radius:6px; background:#fff;
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; transition:all .2s; margin-top:1px;
+}
+.check-box.done{ background:var(--navy); border-color:var(--navy); }
+.check-box.done::after{ content:'✓'; color:#fff; font-size:12px; font-weight:700; }
+.check-text{ font-size:14px; color:var(--ink); line-height:1.75; letter-spacing:.04em; flex:1; }
+.check-text.done{ color:var(--ink-3); text-decoration:line-through; }
+
+/* Process */
+.process-steps{ display:flex; flex-direction:column; gap:0; }
+.step{
+  display:flex; align-items:flex-start; gap:14px;
+  padding:18px 0;
+  border-bottom:1px solid var(--border);
+  position:relative;
+}
+.step:last-child{ border-bottom:none; }
+.step-num-wrap{
+  display:flex; flex-direction:column; align-items:center;
+  flex-shrink:0;
+}
+.step-num{
+  width:30px; height:30px;
+  background:var(--navy); color:#fff;
+  font-size:13px; font-weight:900;
+  border-radius:50%; display:flex; align-items:center; justify-content:center;
+  flex-shrink:0; letter-spacing:.02em;
+}
+.step-line{
+  width:1.5px; background:var(--border);
+  flex:1; min-height:24px; margin-top:6px;
+}
+.step:last-child .step-line{ display:none; }
+.step-content{ padding-top:4px; flex:1; }
+.step-title{
+  font-size:15px; font-weight:700; color:var(--navy);
+  letter-spacing:.05em; margin-bottom:5px;
+}
+.step-body{
+  font-size:13.5px; color:var(--ink-3);
+  line-height:1.8; letter-spacing:.04em;
+}
+
+/* Benefits */
+.benefit-item{
+  display:flex; align-items:flex-start; gap:13px;
+  padding:16px 0; border-bottom:1px solid var(--border);
+}
+.benefit-item:last-child{ border-bottom:none; }
+.benefit-icon{
+  font-size:20px; flex-shrink:0; width:30px;
+  text-align:center; margin-top:1px;
+}
+.benefit-title{
+  font-size:15px; font-weight:700; color:var(--navy);
+  letter-spacing:.05em; margin-bottom:4px;
+}
+.benefit-body{
+  font-size:13.5px; color:var(--ink-3);
+  line-height:1.8; letter-spacing:.04em;
+}
+
+/* Form */
+.form-wrap{
+  background:var(--navy); border-radius:16px;
+  padding:28px 22px; margin-top:4px;
+  text-align:center;
+}
+.form-emoji{ font-size:36px; margin-bottom:14px; display:block; }
+.form-title{
+  font-size:18px; font-weight:900; color:#fff;
+  line-height:1.5; letter-spacing:.05em; margin-bottom:10px;
+}
+.form-body{
+  font-size:13.5px; color:rgba(255,255,255,.50);
+  line-height:1.9; letter-spacing:.04em; margin-bottom:24px;
+}
+.form-fields{ text-align:left; margin-bottom:20px; }
+.field{ margin-bottom:14px; }
+.field label{
+  display:block; font-size:11px; font-weight:700;
+  color:rgba(255,255,255,.45); letter-spacing:.18em;
+  margin-bottom:6px;
+}
+.field input, .field select, .field textarea{
+  width:100%; padding:13px 15px;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:10px; color:#fff;
+  font-size:14px; font-family:'Noto Serif TC',serif;
+  outline:none; transition:border-color .2s;
+  -webkit-appearance:none;
+}
+.field input::placeholder, .field textarea::placeholder{
+  color:rgba(255,255,255,.22);
+}
+.field input:focus, .field select:focus, .field textarea:focus{
+  border-color:var(--gold);
+}
+.field select option{ background:var(--navy); color:#fff; }
+.field textarea{ resize:none; height:80px; }
+.submit-btn{
+  width:100%; padding:16px;
+  background:var(--gold); color:var(--navy);
+  font-size:15px; font-weight:700; letter-spacing:.12em;
+  border:none; border-radius:50px; cursor:pointer;
+  font-family:'Noto Serif TC',serif;
+  transition:opacity .2s; margin-bottom:12px;
+}
+.submit-btn:hover{ opacity:.88; }
+.form-note{
+  font-size:11px; color:rgba(255,255,255,.28);
+  letter-spacing:.07em; line-height:1.7;
+}
+.form-success{
+  display:none; padding:20px;
+  background:rgba(201,168,76,.12);
+  border:1px solid rgba(201,168,76,.25);
+  border-radius:10px; margin-top:14px;
+  font-size:14px; color:rgba(255,255,255,.75);
+  line-height:1.8; letter-spacing:.04em; text-align:center;
+}
+
+/* Footer */
+.footer{
+  text-align:center; padding:32px 20px;
+  font-size:11px; color:var(--ink-3); letter-spacing:.07em; line-height:1.9;
+}
+
+/* CTA Options */
+.cta-options{ display:flex; flex-direction:column; gap:12px; margin-bottom:18px; text-align:left; }
+.cta-option-btn{
+  display:flex; align-items:center; gap:14px;
+  padding:16px 18px; border-radius:12px;
+  text-decoration:none; transition:opacity .2s;
+}
+.cta-option-btn:hover{ opacity:.88; }
+.cta-option-btn.primary{
+  background:var(--gold); color:var(--navy);
+}
+.cta-option-btn.secondary{
+  background:rgba(255,255,255,.10);
+  border:1px solid rgba(255,255,255,.18);
+  color:#fff;
+}
+.cta-opt-icon{ font-size:22px; flex-shrink:0; }
+.cta-opt-text{ flex:1; }
+.cta-opt-title{ font-size:14px; font-weight:700; letter-spacing:.05em; margin-bottom:2px; }
+.cta-option-btn.primary .cta-opt-title{ color:var(--navy); }
+.cta-option-btn.secondary .cta-opt-title{ color:rgba(255,255,255,.90); }
+.cta-opt-desc{ font-size:11.5px; line-height:1.6; letter-spacing:.04em; }
+.cta-option-btn.primary .cta-opt-desc{ color:rgba(26,39,68,.60); }
+.cta-option-btn.secondary .cta-opt-desc{ color:rgba(255,255,255,.42); }
+.cta-arrow{ font-size:16px; flex-shrink:0; opacity:.6; }
+</style>
+</head>
+<body>
+<div class="progress-bar" id="progress"></div>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="hero-tag">E T F  投 資 觀 念</div>
+  <div class="hero-etf">ETF</div>
+  <div class="hero-line"></div>
+  <div class="hero-title">搞錯這 <span>5 件事</span>，你的錢只是丟水溝</div>
+  <div class="hero-sub">你買 ETF，但你知道你在買什麼嗎？很多人選的方式，從一開始就錯了。</div>
+</div>
+
+<div class="wrap">
+
+  <!-- 01 關於我 -->
+  <div class="section">
+    <div class="sec-label">01</div>
+    <div class="sec-title">你好，我是韋總裁</div>
+    <div class="card">
+      <div class="about-photo-wrap">
+        <img class="about-photo" src="data:image/jpeg;base64,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" alt="韋總裁">
+        <div class="about-meta">
+          <div class="about-name">韋總裁｜吳昌韋</div>
+          <div class="about-title-tag">富邦人壽業務主任</div>
+          <div class="about-ig">@changw_0331</div>
+        </div>
+      </div>
+      <div class="about-divider"></div>
+      <div class="about-body">
+        <p>我幫<strong>靠時間和體力賺錢的人</strong>，找到讓錢替你持續工作的方式，不管你是上班族還是自己開店，都一樣適用。</p>
+        <p>我服務過從學生到六十幾歲長輩，各種收入背景、各種財務狀況。每個人的問題不一樣，所以我不給標準答案，只找最適合你的方法。</p>
+        <p>客戶選擇我，不是因為我話術多好，而是因為他們感覺得到我是真的在幫他們想。</p>
+      </div>
+      <div class="about-quote">
+        讓我印象最深的，不是成交的那一刻，而是客戶做完規劃之後，帶著笑容跟我說謝謝、走出去的那個表情。那種「我知道我做得到了」的感覺，是我繼續做這件事的原因。
+      </div>
+    </div>
+  </div>
+
+  <!-- 02 這份指南的目的 -->
+  <div class="section">
+    <div class="sec-label">02</div>
+    <div class="sec-title">這份指南要解決什麼問題</div>
+    <div class="dark-card">
+      <div class="intro-headline">很多人買 ETF，是因為聽說<span>「長期一定會漲」</span></div>
+      <div class="intro-body">
+        <p>但從來沒有人告訴他，選 ETF 這件事本身，就可能從一開始就走錯方向。📉</p>
+        <p>這份指南不是要你馬上換掉手上的 ETF，而是給你一個框架，讓你自己評估，你現在選的，真的適合你嗎？</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 03 五個核心指標 -->
+  <div class="section">
+    <div class="sec-label">03</div>
+    <div class="sec-title">選 ETF 前，先搞清楚這 5 件事</div>
+
+    <div class="ind-card">
+      <div class="ind-header">
+        <div class="ind-num">1</div>
+        <div class="ind-title">🧭 它在跟誰跑？</div>
+      </div>
+      <div class="ind-body">
+        <p>ETF 的核心是追蹤一個「指數」，也就是它跟著哪個市場在走。你要先搞清楚，它追的是大盤整體市場、特定產業如科技或半導體，還是高股息篩選邏輯？</p>
+        <p>不是哪個比較好，而是要跟你自己的目標一致。</p>
+      </div>
+      <div class="key-pill">方向不對，長期就會跑偏。選之前先知道「這支在追誰」。</div>
+    </div>
+
+    <div class="ind-card">
+      <div class="ind-header">
+        <div class="ind-num">2</div>
+        <div class="ind-title">💸 每年被扣走多少？</div>
+      </div>
+      <div class="ind-body">
+        <p>這叫做費用率，也就是 ETF 每年從你的資產裡扣掉的管理成本。看起來只有 0.x%，感覺很小，但用複利算一遍你就知道了。</p>
+      </div>
+      <table class="cost-table">
+        <tr><th>條件</th><th>結果</th></tr>
+        <tr><td>每月投 5,000 元，持續 30 年</td><td>—</td></tr>
+        <tr><td>費用率差 1%</td><td>最終差超過 100 萬</td></tr>
+      </table>
+      <div class="key-pill">不是你不努力，是錢在你不知情的地方被扣走了。同類型 ETF，費用率越低越好。</div>
+    </div>
+
+    <div class="ind-card">
+      <div class="ind-header">
+        <div class="ind-num">3</div>
+        <div class="ind-title">🏛️ 夠大夠穩嗎？</div>
+      </div>
+      <div class="ind-body">
+        <p>ETF 的規模和交易量，決定了它安不安全。規模太小的 ETF 有幾個風險，流動性差會讓你想買買不到、想賣賣不掉，長期虧損甚至可能直接下市，你的錢被迫出場。😬</p>
+      </div>
+      <div class="key-pill">選大的、交易量穩定的，才能真正放著讓它跑。</div>
+    </div>
+
+    <div class="ind-card">
+      <div class="ind-header">
+        <div class="ind-num">4</div>
+        <div class="ind-title">📏 說跟大盤走，實際差多遠？</div>
+      </div>
+      <div class="ind-body">
+        <p>ETF 實際的報酬跟它追蹤的指數相差多少，這個差距越小越好。如果差距很大，代表這支 ETF 的管理效率有問題，你買的跟你以為買的根本不一樣。</p>
+      </div>
+      <div class="key-pill">差太多，代表你沒有真的買到你想要的那個市場。</div>
+    </div>
+
+    <div class="ind-card">
+      <div class="ind-header">
+        <div class="ind-num">5</div>
+        <div class="ind-title">🔍 你以為分散，其實押在同幾家？</div>
+      </div>
+      <div class="ind-body">
+        <p>「買 ETF 就是分散風險」，這句話不一定對。有些 ETF 的前五大持股加起來就佔了 40% 以上，等於你以為買了一籃子，其實重壓在同一批公司上。😅</p>
+        <p>看一下你手上的 ETF，前幾大持股是誰、各佔幾趴，分散不分散，自己就能判斷。</p>
+      </div>
+      <div class="key-pill">持股集中度是最容易被忽略、但影響最大的風險指標。</div>
+    </div>
+  </div>
+
+  <!-- 04 長期投資心法 -->
+  <div class="section">
+    <div class="sec-label">04</div>
+    <div class="sec-title">長期投資的核心思維</div>
+    <div class="dark-card">
+      <div class="mindset-headline">真正讓財富成長的，<br>不是配息，是<span>時間在替你工作</span> ⏳</div>
+      <div class="mindset-item">
+        <div class="mindset-dot"></div>
+        <div class="mindset-text">
+          <strong>配息高，不等於報酬高</strong>
+          配息只是報酬的其中一部分，股價跌掉的，不會因為你領了配息就補回來。
+        </div>
+      </div>
+      <div class="mindset-item">
+        <div class="mindset-dot"></div>
+        <div class="mindset-text">
+          <strong>低成本，才能讓複利發揮威力</strong>
+          選對指數方向，費用率盡量低，定期買入，其他的交給時間。
+        </div>
+      </div>
+      <div class="mindset-item">
+        <div class="mindset-dot"></div>
+        <div class="mindset-text">
+          <strong>不管市場漲跌，持續就是策略</strong>
+          短期波動是正常的，持續買入才是長期投資真正的樣子。
+        </div>
+      </div>
+      <div class="mindset-quote">
+        投資 ETF 不是短跑，是一場你設定好規則就能贏的馬拉松。方向對了，剩下的交給時間。🏃
+      </div>
+    </div>
+  </div>
+
+  <!-- 05 自我評估清單 -->
+  <div class="section">
+    <div class="sec-label">05</div>
+    <div class="sec-title">對照你的 ETF，逐一確認</div>
+    <div class="card">
+      <div class="check-title">🗒️ 五項指標，打勾代表你搞清楚了</div>
+      <div id="checklist">
+        <div class="check-item">
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div class="check-text">它追的市場方向，跟我的投資目標一致</div>
+        </div>
+        <div class="check-item">
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div class="check-text">費用率我知道是多少，同類型有沒有更低的選擇</div>
+        </div>
+        <div class="check-item">
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div class="check-text">規模夠大，交易量穩定，不用擔心下市風險</div>
+        </div>
+        <div class="check-item">
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div class="check-text">實際報酬跟指數的落差在合理範圍內</div>
+        </div>
+        <div class="check-item">
+          <div class="check-box" onclick="toggleCheck(this)"></div>
+          <div class="check-text">前五大持股我知道是誰，佔比沒有過度集中</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 06 諮詢流程 -->
+  <div class="section">
+    <div class="sec-label">06</div>
+    <div class="sec-title">找我諮詢，會發生什麼事</div>
+    <div class="card">
+      <div class="process-steps">
+        <div class="step">
+          <div class="step-num-wrap">
+            <div class="step-num">1</div>
+            <div class="step-line"></div>
+          </div>
+          <div class="step-content">
+            <div class="step-title">提供保單，聊聊你的目標與現狀</div>
+            <div class="step-body">透過訊息初步了解你現在的財務狀況和想解決的問題，不用準備什麼，輕鬆聊就好。</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num-wrap">
+            <div class="step-num">2</div>
+            <div class="step-line"></div>
+          </div>
+          <div class="step-content">
+            <div class="step-title">線上諮詢，討論方案與需求</div>
+            <div class="step-body">了解你的財務結構之後，提出幾個方向跟你一起討論，確認方案是否真的符合你的需求，不是單方面給建議。</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num-wrap">
+            <div class="step-num">3</div>
+            <div class="step-line"></div>
+          </div>
+          <div class="step-content">
+            <div class="step-title">預約見面，確認執行計畫</div>
+            <div class="step-body">需求確認之後，才會進到約見面這個步驟，一起把執行計畫定下來，讓規劃真的落地。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 07 找我的好處 -->
+  <div class="section">
+    <div class="sec-label">07</div>
+    <div class="sec-title">找我諮詢，跟找別人不一樣在哪</div>
+    <div class="card">
+      <div class="benefit-item">
+        <div class="benefit-icon">🎯</div>
+        <div>
+          <div class="benefit-title">先聽你說，再給建議</div>
+          <div class="benefit-body">我不會一開始就推產品，而是先弄清楚你的目標、收入和現有資產，才決定哪個方向最適合你。</div>
+        </div>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-icon">📊</div>
+        <div>
+          <div class="benefit-title">給你看得懂的數字</div>
+          <div class="benefit-body">我習慣用明確的數字說話，不說模糊的「對你有幫助」，而是告訴你具體會差在哪裡、差多少。</div>
+        </div>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-icon">🤝</div>
+        <div>
+          <div class="benefit-title">長期陪伴，不是一次成交</div>
+          <div class="benefit-body">很多客戶跟我合作好幾年，因為財務規劃是會隨著人生階段調整的事，我會一直在。</div>
+        </div>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-icon">🔒</div>
+        <div>
+          <div class="benefit-title">你信任的，才是真正的保障</div>
+          <div class="benefit-body">有客戶跟我說過一句話，「交給你我會很放心。」那種信任，是靠時間累積出來的，不是話術換來的。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 08 理財諮詢表單 -->
+  <div class="section">
+    <div class="sec-label">08</div>
+    <div class="sec-title">預約一對一理財諮詢</div>
+    <div class="form-wrap">
+      <span class="form-emoji">📋</span>
+      <div class="form-title">選一個你覺得順手的方式</div>
+      <div class="form-body">不推銷，不給標準答案。先聽懂你的狀況，再告訴你我能怎麼幫。每個月名額有限，填完後 24 小時內我會主動聯繫。</div>
+      <div class="cta-options">
+        <a class="cta-option-btn primary" href="https://forms.gle/5fSmwmKoNAWqwinHA" target="_blank">
+          <span class="cta-opt-icon">📝</span>
+          <div class="cta-opt-text">
+            <div class="cta-opt-title">填寫諮詢表單</div>
+            <div class="cta-opt-desc">填寫你的狀況，讓我先了解，24 小時內主動聯繫你</div>
+          </div>
+          <span class="cta-arrow">→</span>
+        </a>
+        <a class="cta-option-btn secondary" href="https://www.instagram.com/changw_0331" target="_blank">
+          <span class="cta-opt-icon">💬</span>
+          <div class="cta-opt-text">
+            <div class="cta-opt-title">直接與我預約諮詢</div>
+            <div class="cta-opt-desc">IG 私訊「諮詢」，我們直接約時間聊</div>
+          </div>
+          <span class="cta-arrow">→</span>
+        </a>
+      </div>
+      <div class="form-note">兩種方式我都會親自回覆，不是自動訊息。</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  韋總裁 · 富邦人壽業務主任<br>
+  @changw_0331
+</div>
+
+<script>
+// Progress bar
+window.addEventListener('scroll', function(){
+  var d = document.documentElement;
+  var pct = d.scrollHeight - d.clientHeight;
+  var p = pct > 0 ? ((d.scrollTop || document.body.scrollTop) / pct * 100) : 0;
+  document.getElementById('progress').style.width = p + '%';
+});
+
+// Checklist
+function toggleCheck(box){
+  box.classList.toggle('done');
+  var t = box.nextElementSibling;
+  if(t) t.classList.toggle('done');
+}
+
+// Form submit
+function submitForm(){
+  var name = document.getElementById('f-name').value.trim();
+  var contact = document.getElementById('f-contact').value.trim();
+  if(!name || !contact){
+    alert('請填寫你的名字和聯絡方式，讓我可以找到你。');
+    return;
+  }
+  document.querySelector('.submit-btn').style.display = 'none';
+  document.getElementById('form-success').style.display = 'block';
+}
+</script>
+</body>
+</html>
